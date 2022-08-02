@@ -1,0 +1,50 @@
+﻿
+@model LotteryApp.Models.Request.DrawInfoRequest
+
+@{
+    ViewData["Title"] = "Lottery";
+    Layout = "~/Views/Shared/__LotteriesLayout.cshtml";
+}
+<style type="text/css">
+    .card-primary {
+        border: 1px solid #007bff !important;
+        border-radius: 5px;
+    }
+</style>
+<div class="card-primary">
+    <div class="card-header bg-primary">Odds Lottery Number</div>
+    <div class="card-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="FromPool">From a pool of:</label>
+                    @Html.EditorFor(model => model.n, new { htmlAttributes = new { @class = "form-control", @id = "N" } })
+                    @Html.ValidationMessageFor(model => model.n, "", new { @class = "text-danger", @id = "ErrorlabelN" })
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="Ballsdrawn">Balls to be drawn:</label>
+                    @Html.EditorFor(model => model.r, new { htmlAttributes = new { @class = "form-control", @id = "R" } })
+                    @Html.ValidationMessageFor(model => model.r, "", new { @class = "text-danger", @id = "ErrorlabelR" })
+                </div>
+            </div>
+            @Html.HiddenFor(model => model.m, new { htmlAttributes = new { @class = "form-control", @id = "M" } })
+            <div class="form-group">
+                <div class="col-md-offset-5 col-md-4">
+                    <input type="button" value="Draw The Lottery" class="btn btn-primary" onclick="GetLottery()" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12" id="Lottery">
+
+    </div>
+</div>
+
+
